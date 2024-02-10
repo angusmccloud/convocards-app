@@ -36,16 +36,22 @@ const categories = [
     sortOrder: 6,
   },
   {
+    id: 'rabbitHole',
+    label: 'Rabbit Hole',
+    icon: 'rabbitHole',
+    sortOrder: 7,
+  },
+  {
     id: 'loveLife',
     label: 'Love Life',
     icon: 'loveLife',
-    sortOrder: 7,
+    sortOrder: 8,
   },
   {
     id: 'sex',
     label: 'Sex',
     icon: 'sex',
-    sortOrder: 8,
+    sortOrder: 9,
   },
 ]
 
