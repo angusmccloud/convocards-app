@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { View } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { lightTheme, darkTheme } from "./styles";
@@ -47,7 +46,7 @@ export default function App() {
   const theme = themeName === "Dark" ? darkTheme : lightTheme;
   const saveTheme = async (newThemeName) => {
     setThemeName(newThemeName);
-    await AsyncStorage.setItem("themeName", newThemeName);
+    await storeData("themeName", newThemeName);
   };
 
   // Pieces for the Snackbar Context
@@ -142,7 +141,8 @@ export default function App() {
   useEffect(() => {
     const fetchCurrentTheme = async () => {
       try {
-        const currentTheme = await AsyncStorage.getItem("themeName");
+        // const currentTheme = await AsyncStorage.getItem("themeName");
+        const currentTheme = await getData("themeName");
         if (currentTheme) {
           setThemeName(currentTheme);
         }

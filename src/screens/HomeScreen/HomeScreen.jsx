@@ -65,13 +65,13 @@ const CategoryButton = (props) => {
       flexDirection: 'row',
     }}>
       <View style={{width: 40, alignItems: 'flex-start', justifyContent: 'center'}}>
-        <Icon name={category.icon} size={30} color={selectedCategories.includes(category.id) ? theme.colors.onPrimary : theme.colors.primary} />
+        <Icon name={category.icon} size={30} color={selectedCategories.includes(category.id) ? theme.colors.onPrimary : theme.colors.onBackground} />
       </View>
       <View style={{marginLeft: 5}}>
-        <Text color={selectedCategories.includes(category.id) ? theme.colors.onPrimary : theme.colors.primary} size="L" bold>
+        <Text color={selectedCategories.includes(category.id) ? theme.colors.onPrimary : theme.colors.onBackground} size="L" bold>
           {category.label}
         </Text>
-        <Text color={selectedCategories.includes(category.id) ? theme.colors.onPrimary : theme.colors.primary}>
+        <Text color={selectedCategories.includes(category.id) ? theme.colors.onPrimary : theme.colors.onBackground}>
           {numberOfQuestions} Questions {numberOfViewedQuestions > 0 ? `(${numberOfUnreadQuestions} Unread)` : ''}
         </Text>
       </View>

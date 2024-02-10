@@ -39,7 +39,8 @@ const Navigation = () => {
     <>
       <StatusBar
         backgroundColor={theme.colors.onPrimary}
-        barStyle={theme.name === "Dark" ? "light-content" : "dark-content"}
+        // barStyle={theme.name === "Dark" ? "dark-content" : "light-content"}
+        barStyle="light-content" // Header is always Dark
       />
       <HomeStackScreen />
     </>

@@ -59,23 +59,25 @@ export default function QuestionScreen({ navigation, route }) {
   }
 
   useEffect(() => {
-    if(categories.length > 0) {
-      const newQuestions = questions.filter((question) => categories.includes(question.category));
-      if(categories.includes('favorites')) {
-        // Add all questions who's ID are in the favorites array
-        newQuestions.push(...questions.filter((question) => favorites.includes(question.id)));
+    if(allQuestions.length === 0) {
+      if(categories.length > 0) {
+        const newQuestions = questions.filter((question) => categories.includes(question.category));
+        if(categories.includes('favorites')) {
+          // Add all questions who's ID are in the favorites array
+          newQuestions.push(...questions.filter((question) => favorites.includes(question.id)));
+        }
+        if(categories.includes('disliked')) {
+          // Add all questions who's ID are in the disliked array
+          newQuestions.push(...questions.filter((question) => disliked.includes(question.id)));
+        }
+        // Then sort randomly
+        newQuestions.sort(() => Math.random() - 0.5);
+        setAllQuestions(newQuestions);
+        setDisplayIndex(newQuestions.length - 1);
+      } else {
+        setAllQuestions([]);
+        setDisplayIndex(-1);
       }
-      if(categories.includes('disliked')) {
-        // Add all questions who's ID are in the disliked array
-        newQuestions.push(...questions.filter((question) => disliked.includes(question.id)));
-      }
-      // Then sort randomly
-      newQuestions.sort(() => Math.random() - 0.5);
-      setAllQuestions(newQuestions);
-      setDisplayIndex(newQuestions.length - 1);
-    } else {
-      setAllQuestions([]);
-      setDisplayIndex(-1);
     }
   }, [categories, favorites, disliked]);
 
@@ -88,7 +90,9 @@ export default function QuestionScreen({ navigation, route }) {
             index={index}
             displayIndex={displayIndex}
             question={question}
-            theme={theme} 
+            theme={theme}
+            favorites={favorites}
+            disliked={disliked}
             onSharePress={onSharePress}
           />
         )}
@@ -109,9 +113,9 @@ export default function QuestionScreen({ navigation, route }) {
 }
 
 const QuestionCard = (props) => {
-  const { question, index, theme, displayIndex, onSharePress } = props;
-  const { favorites, onFavoritePress } = useContext(FavoritesContext);
-  const { disliked, onDislikePress } = useContext(DislikedContext);
+  const { question, index, theme, displayIndex, favorites, disliked, onSharePress } = props;
+  const { onFavoritePress } = useContext(FavoritesContext);
+  const { onDislikePress } = useContext(DislikedContext);
   const styles = useStyles(theme);
   const isFavorite = favorites.includes(question.id);
   const heartIcon = isFavorite ? 'heart' : 'heartOutline';
@@ -127,17 +131,23 @@ const QuestionCard = (props) => {
         exiting={SlideOutLeft}
       >
         <View style={{marginBottom: 30}}>
-          <Text size={'XXL'} color={theme.colors.primary} bold style={{textAlign: 'center'}}>{question.question}</Text>
+          <Text size={'XXL'} color={theme.colors.onBackground} bold style={{textAlign: 'center'}}>{question.question}</Text>
         </View>
         <View style={styles.cardButtonContainer}>
           <TouchableWithoutFeedback onPress={() => onDislikePress(question)}>
-          <Icon name={dislikedIcon} size={30} />
+            <View>
+              <Icon name={dislikedIcon} size={30} color={theme.colors.onBackground} />
+            </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={() => onSharePress(question)}>
-            <Icon name={'share'} size={30} />
+            <View>
+              <Icon name={'share'} size={30} color={theme.colors.onBackground} />
+            </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={() => onFavoritePress(question)}>
-            <Icon name={heartIcon} size={30} />
+            <View>
+              <Icon name={heartIcon} size={30} color={theme.colors.onBackground} />
+            </View>
           </TouchableWithoutFeedback>
         </View>
       </Animated.View>

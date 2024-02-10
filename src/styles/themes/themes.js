@@ -40,10 +40,10 @@ export const lightTheme = {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
     // Add all our colors here
-    textDefault: black,
+    textDefault: primaryGreen,
     iconDefault: grayDark,
     background: white,
-    onBackground: black,
+    onBackground: primaryGreen,
     modalBackground: primaryGreen,
     onModalBackground: white,
     modalHeader: primaryGreen,
@@ -74,6 +74,8 @@ export const darkTheme = {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
     // Add all our colors here
+    textDefault: white,
+    iconDefault: white,
     background: black,
     onBackground: white,
     modalBackground: primaryGreen,
@@ -82,6 +84,8 @@ export const darkTheme = {
     onModalHeader: white,
     primary: primaryGreen,
     onPrimary: white,
+    primaryContainer: primaryGreen, // Used by AnimatedFAB
+    onPrimaryContainer: white, // Used by AnimatedFAB
     primaryContainer: primaryGreen,
     disabled: grayMedium,
     onDisabled: primaryGreen,
