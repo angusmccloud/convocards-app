@@ -30,7 +30,7 @@ const useStyles = theme => {
       // textAlign: 'center',
       padding: 10,
     },
-    buttonContainer: {
+    navigationButtonContainer: {
       position: 'absolute',
       bottom: height * .25,
       width: width,

@@ -5,7 +5,7 @@ import {
   ButtonProps as PaperButtonProps,
   useTheme,
 } from "react-native-paper";
-import Text from "../Text/Text";
+import Text, {TextSizes} from "../Text/Text";
 
 interface ButtonProps extends PaperButtonProps {
   variant?:
@@ -15,6 +15,8 @@ interface ButtonProps extends PaperButtonProps {
     | "secondaryOnDark"
     | "onModalHeader";
   short?: boolean;
+  textSize?: TextSizes;
+  textBold?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
@@ -23,6 +25,8 @@ const Button = (props: ButtonProps) => {
     variant = "primary",
     short = false,
     children,
+    textSize,
+    textBold,
     ...restOfProps
   } = props;
   const theme = useTheme();
@@ -56,7 +60,7 @@ const Button = (props: ButtonProps) => {
         }}
         {...restOfProps}
       >
-        <Text color={textColor}>{props.children}</Text>
+        <Text color={textColor} size={textSize} bold={textBold}>{props.children}</Text>
       </Pressable>
     );
   }
@@ -69,7 +73,7 @@ const Button = (props: ButtonProps) => {
       {...restOfProps}
       theme={theme}
     >
-      <Text color={textColor}>{props.children}</Text>
+      <Text color={textColor} size={textSize} bold={textBold}>{props.children}</Text>
     </PaperButton>
   );
 };

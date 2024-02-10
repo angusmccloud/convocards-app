@@ -99,9 +99,9 @@ export default function QuestionScreen({ navigation, route }) {
             </Text>
           </View>
         )}
-        <View style={styles.buttonContainer}>
-          <Button onPress={onPreviousQuestionPress} disabled={allQuestions.length === 0 || displayIndex === (allQuestions.length -1)}>Previous</Button>
-          <Button onPress={onNextQuestionPress} disabled={allQuestions.length === 0 || displayIndex === -1}>Next</Button>
+        <View style={styles.navigationButtonContainer}>
+          <Button textSize={'L'} textBold onPress={onPreviousQuestionPress} disabled={allQuestions.length === 0 || displayIndex === (allQuestions.length -1)}>Previous</Button>
+          <Button textSize={'L'} textBold onPress={onNextQuestionPress} disabled={allQuestions.length === 0 || displayIndex === -1}>Next</Button>
         </View>
       </View>
     </View>
