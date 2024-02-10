@@ -11,7 +11,7 @@ interface IconProps {
 
 const Icon = (props: IconProps) => {
   const theme = useTheme();
-  const { name, size = 32, color = theme.colors.iconDefault, ...restOfProps } = props;
+  const { name, size = 32, color = theme.colors.primary, ...restOfProps } = props;
   let iconName = allIcons.find((icon) => icon.iconName === name);
   if (!iconName) {
     // Default to the friends icon if we get one that doesn't exist
@@ -84,6 +84,10 @@ export const allIcons = [
   { type: "FontAwesome5", name: 'people-arrows', iconName: 'longTermCouples', label: 'Long Term Couples' },
   { type: "FontAwesome", name: "intersex", iconName: "sex", label: "Sex" },
   { type: "Ionicons", name: "chatbubbles", iconName: "chat", label: "Chat" },
+  { type: "MaterialCommunityIcons", name: "rabbit", iconName: "rabbitHole", label: "Rabbit Hole" },
+  { type: "SimpleLineIcons", name: "share", iconName: "share", label: "Share" },
+  { type: "FontAwesome", name: "thumbs-down", iconName: "thumbsDown", label: "Thumbs Down" },
+  { type: "FontAwesome", name: "thumbs-o-down", iconName: "thumbsDownOutline", label: "Thumbs Down Outline" },
   
   { type: "EvilIcons", name: "calendar", iconName: "calendar", label: "Calendar" },
   { type: "Ionicons", name: "map", iconName: "map", label: "Map" },

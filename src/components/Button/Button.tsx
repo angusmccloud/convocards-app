@@ -22,6 +22,7 @@ const Button = (props: ButtonProps) => {
     mode = "contained",
     variant = "primary",
     short = false,
+    children,
     ...restOfProps
   } = props;
   const theme = useTheme();

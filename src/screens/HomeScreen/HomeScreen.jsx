@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { View, Pressable, ScrollView } from "react-native";
 import { useTheme } from "react-native-paper";
 import { Text, Icon, AnimatedFAB } from '../../components';
 import { categories, questions } from "../../data";
+import { ViewedContext, FavoritesContext, DislikedContext } from "../../contexts";
 import useStyles from './HomeScreenStyles';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation, route}) {
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const { favorites } = useContext(FavoritesContext);
+  const { disliked } = useContext(DislikedContext);
   const theme = useTheme();
   const styles = useStyles(theme);
 
@@ -19,7 +22,10 @@ export default function HomeScreen() {
   };
 
   const handleStartPress = () => {
-    console.log('-- LETS GO --');
+    navigation.push("Question Screen", {
+      categories: selectedCategories,
+      viewType: 'all',
+    });
   }
 
   return (
@@ -28,6 +34,12 @@ export default function HomeScreen() {
         {categories.map((category, index) => (
           <CategoryButton key={category.id} category={category} index={index} selectedCategories={selectedCategories} handleCategoryPress={handleCategoryPress} theme={theme} />
         ))}
+        {favorites.length > 0 && (
+          <CategoryButton key={'favorites'} category={{id: 'favorites', label: 'Favorites', icon: 'heartOutline'}} selectedCategories={selectedCategories} handleCategoryPress={handleCategoryPress} theme={theme} questionsInCategory={favorites} />
+        )}
+        {disliked.length > 0 && (
+          <CategoryButton key={'disliked'} category={{id: 'disliked', label: 'Disliked', icon: 'thumbsDownOutline'}} selectedCategories={selectedCategories} handleCategoryPress={handleCategoryPress} theme={theme} questionsInCategory={disliked} />
+        )}
       </ScrollView>
       <AnimatedFAB icon="chat" label={'Start Chatting'} visible={selectedCategories.length > 0} onPress={handleStartPress} extended={true} />
     </View>
@@ -35,7 +47,12 @@ export default function HomeScreen() {
 }
 
 const CategoryButton = (props) => {
-  const { category, index, selectedCategories, handleCategoryPress, theme } = props;
+  const { category, selectedCategories, handleCategoryPress, theme, questionsInCategory } = props;
+  const { viewed } = useContext(ViewedContext);
+  const categoryQuestions = questions.filter((question) => question.category === category.id);
+  const numberOfQuestions = questionsInCategory ? questionsInCategory.length : categoryQuestions.length;
+  const numberOfViewedQuestions = questionsInCategory ? 0 : categoryQuestions.filter((question) => viewed.includes(question.id)).length;
+  const numberOfUnreadQuestions = questionsInCategory ? questionsInCategory.length : numberOfQuestions - numberOfViewedQuestions;
   return (
     <Pressable key={category.id} onPress={() => handleCategoryPress(category.id)} style={{
       padding: 10, 
@@ -55,7 +72,7 @@ const CategoryButton = (props) => {
           {category.label}
         </Text>
         <Text color={selectedCategories.includes(category.id) ? theme.colors.onPrimary : theme.colors.primary}>
-          {questions.filter((question) => question.category === category.id).length} Questions
+          {numberOfQuestions} Questions {numberOfViewedQuestions > 0 ? `(${numberOfUnreadQuestions} Unread)` : ''}
         </Text>
       </View>
     </Pressable>

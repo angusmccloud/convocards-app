@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useTheme } from "react-native-paper";
 import {
   HomeScreen,
-  SwipeScreen,
+  QuestionScreen,
 } from "../screens";
 
 const HomeStack = createNativeStackNavigator();
@@ -26,7 +26,8 @@ const getScreenOptions = () => {
 const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator screenOptions={getScreenOptions()} >
-      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="Home" component={HomeScreen} options={({ route }) => ({ title: 'Convo Cards' })} />
+      <HomeStack.Screen name="Question Screen" component={QuestionScreen} options={({ route }) => ({ title: 'Start Chatting' })} />
     </HomeStack.Navigator>
   );
 };
