@@ -1,6 +1,6 @@
 import React from "react";
 import { Image } from "react-native";
-import { Ionicons, FontAwesome5, FontAwesome, MaterialCommunityIcons, EvilIcons, SimpleLineIcons, MaterialIcons, AntDesign } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5, FontAwesome6, FontAwesome, MaterialCommunityIcons, EvilIcons, SimpleLineIcons, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useTheme } from "react-native-paper";
 
 interface IconProps {
@@ -29,6 +29,10 @@ const Icon = (props: IconProps) => {
   } else if (iconName.type === 'FontAwesome5') {
     return (
       <FontAwesome5 name={iconName.name} size={size} color={color} {...restOfProps} />
+    );
+  } else if (iconName.type === 'FontAwesome6') {
+    return (
+      <FontAwesome6 name={iconName.name} size={size} color={color} {...restOfProps} />
     );
   } else if (iconName.type === 'MaterialCommunityIcons') {
     return (
@@ -88,12 +92,13 @@ export const allIcons = [
   { type: "SimpleLineIcons", name: "share", iconName: "share", label: "Share" },
   { type: "FontAwesome", name: "thumbs-down", iconName: "thumbsDown", label: "Thumbs Down" },
   { type: "FontAwesome", name: "thumbs-o-down", iconName: "thumbsDownOutline", label: "Thumbs Down Outline" },
+  { type: "FontAwesome6", name: "children", iconName: "kids", label: "Kids" },
   
   { type: "EvilIcons", name: "calendar", iconName: "calendar", label: "Calendar" },
   { type: "Ionicons", name: "map", iconName: "map", label: "Map" },
   { type: "EvilIcons", name: "trophy", iconName: "standings", label: "Standings" },
   { type: "EvilIcons", name: "bell", iconName: "notifications", label: "Notifications" },
-  { type: "EvilIcons", name: "question", iconName: "info", label: "Info" },
+  { type: "FontAwesome5", name: "info-circle", iconName: "info", label: "Info" },
   { type: "Ionicons", name: "person-circle", iconName: "user", label: "User" },
   { type: "EvilIcons", name: "plus", iconName: "addItem", label: "Add Item" },
   { type: "AntDesign", name: "edit", iconName: "edit", label: "Edit" },

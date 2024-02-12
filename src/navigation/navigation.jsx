@@ -6,6 +6,7 @@ import {
   HomeScreen,
   QuestionScreen,
 } from "../screens";
+import { InfoModal } from '../containers';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -26,7 +27,13 @@ const getScreenOptions = () => {
 const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator screenOptions={getScreenOptions()} >
-      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="Home" component={HomeScreen}  options={{ 
+        headerLeft: () => (
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <InfoModal />
+          </View>
+        )
+      }} />
       <HomeStack.Screen name="Question Screen" component={QuestionScreen} options={({ route }) => ({ title: 'Start Chatting' })} />
     </HomeStack.Navigator>
   );
