@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { View } from 'react-native';
+import { View, useColorScheme } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider as PaperProvider } from "react-native-paper";
 import * as Font from 'expo-font';
@@ -41,6 +41,7 @@ export default function App() {
   const [disliked, setDisliked] = useState([]);
   const [viewed, setViewed] = useState([]);
   const nav = useRef();
+  const colorScheme = useColorScheme();
 
   // Pieces for Theme Context
   const theme = themeName === "Dark" ? darkTheme : lightTheme;
@@ -136,6 +137,14 @@ export default function App() {
     setViewed(newViewed);
     storeData('viewed', newViewed);
   }
+
+  useEffect(() => {
+    if (colorScheme === "dark") {
+      setThemeName("Dark");
+    } else {
+      setThemeName("Light");
+    }
+  }, [colorScheme])
 
   // Fetch user and prepare the app
   useEffect(() => {
