@@ -33,15 +33,15 @@ const customFonts = {
 };
 
 export default function App() {
+  const colorScheme = useColorScheme();
   const [appIsReady, setAppIsReady] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarDetails, setSnackbarDetails] = useState(DefaultSnackbar);
-  const [themeName, setThemeName] = useState("Light");
+  const [themeName, setThemeName] = useState(colorScheme === "dark" ? "Dark" : "Light");
   const [favorites, setFavorites] = useState([]);
   const [disliked, setDisliked] = useState([]);
   const [viewed, setViewed] = useState([]);
   const nav = useRef();
-  const colorScheme = useColorScheme();
 
   // Pieces for Theme Context
   const theme = themeName === "Dark" ? darkTheme : lightTheme;
