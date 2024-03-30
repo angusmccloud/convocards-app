@@ -12,6 +12,7 @@ export default function QuestionScreen({ navigation, route }) {
   const [allQuestions, setAllQuestions] = useState([]);
   const [displayIndex, setDisplayIndex] = useState(0);
   const { addToViewed, removeFromViewed } = useContext(ViewedContext);
+  const [questionsLoaded, setQuestionsLoaded] = useState(false);
   const { favorites } = useContext(FavoritesContext);
   const { disliked } = useContext(DislikedContext);
   const theme = useTheme();
@@ -19,12 +20,12 @@ export default function QuestionScreen({ navigation, route }) {
 
   const onNextQuestionPress = () => {
     addToViewed(allQuestions[displayIndex]);
-    setDisplayIndex(displayIndex-1);
+    setDisplayIndex(displayIndex+1);
   }
 
   const onPreviousQuestionPress = () => {
     removeFromViewed(allQuestions[displayIndex+1]);
-    setDisplayIndex(displayIndex+1);
+    setDisplayIndex(displayIndex-1);
   }
 
   const onSharePress = async (question) => {
@@ -73,11 +74,12 @@ export default function QuestionScreen({ navigation, route }) {
         // Then sort randomly
         newQuestions.sort(() => Math.random() - 0.5);
         setAllQuestions(newQuestions);
-        setDisplayIndex(newQuestions.length - 1);
+        // setDisplayIndex(newQuestions.length - 1);
       } else {
         setAllQuestions([]);
         setDisplayIndex(-1);
       }
+      setQuestionsLoaded(true);
     }
   }, [categories, favorites, disliked]);
 
@@ -94,9 +96,10 @@ export default function QuestionScreen({ navigation, route }) {
             favorites={favorites}
             disliked={disliked}
             onSharePress={onSharePress}
+            numberOfItems={allQuestions.length}
           />
         )}
-        {(allQuestions.length === 0 || displayIndex < 0) && (
+        {(allQuestions.length === 0 || displayIndex === allQuestions.length && questionsLoaded) && (
           <View style={{alignContent: 'center', justifyContent: 'center', marginTop: 100, marginHorizontal: 20,}}>
             <Text size={'XL'} style={{textAlign: 'center'}}>
               There are no more conversations in this pack. Please go home to select a new topic to talk about.
@@ -104,8 +107,8 @@ export default function QuestionScreen({ navigation, route }) {
           </View>
         )}
         <View style={styles.navigationButtonContainer}>
-          <Button textSize={'L'} textBold onPress={onPreviousQuestionPress} disabled={allQuestions.length === 0 || displayIndex === (allQuestions.length -1)}>Previous</Button>
-          <Button textSize={'L'} textBold onPress={onNextQuestionPress} disabled={allQuestions.length === 0 || displayIndex === -1}>Next</Button>
+          <Button textSize={'L'} textBold onPress={onPreviousQuestionPress} disabled={allQuestions.length === 0 || displayIndex === 0}>Previous</Button>
+          <Button textSize={'L'} textBold onPress={onNextQuestionPress} disabled={allQuestions.length === 0 || displayIndex === (allQuestions.length)}>Next</Button>
         </View>
       </View>
     </View>
@@ -113,7 +116,7 @@ export default function QuestionScreen({ navigation, route }) {
 }
 
 const QuestionCard = (props) => {
-  const { question, index, theme, displayIndex, favorites, disliked, onSharePress } = props;
+  const { question, index, theme, displayIndex, favorites, disliked, numberOfItems, onSharePress } = props;
   const { onFavoritePress } = useContext(FavoritesContext);
   const { onDislikePress } = useContext(DislikedContext);
   const styles = useStyles(theme);
@@ -122,11 +125,15 @@ const QuestionCard = (props) => {
   const isDisliked = disliked.includes(question.id);
   const dislikedIcon = isDisliked ? 'thumbsDown' : 'thumbsDownOutline';
 
+  const zIndex = numberOfItems - index;
+  if(Math.abs(displayIndex - index) > 1) {
+    return null;
+  }
   return (
-    displayIndex >= index ? (
+    displayIndex <= index ? (
       <Animated.View 
         key={question.id}
-        style={[styles.card, {zIndex: index}]}
+        style={[styles.card, {zIndex: zIndex}]}
         entering={SlideInLeft}
         exiting={SlideOutLeft}
       >

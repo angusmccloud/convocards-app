@@ -36,8 +36,13 @@
     },
     "plugins": [
       [
-        "expo-font",
-        "expo-updates"
+        "expo-font"
+      ],
+      [
+        "expo-updates",
+        {
+          "username": "angusmccloud"
+        }
       ]
     ],
     "runtimeVersion": {
