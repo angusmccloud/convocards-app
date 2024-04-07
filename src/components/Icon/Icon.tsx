@@ -93,6 +93,7 @@ export const allIcons = [
   { type: "FontAwesome", name: "thumbs-down", iconName: "thumbsDown", label: "Thumbs Down" },
   { type: "FontAwesome", name: "thumbs-o-down", iconName: "thumbsDownOutline", label: "Thumbs Down Outline" },
   { type: "FontAwesome6", name: "children", iconName: "kids", label: "Kids" },
+  { type: "FontAwesome5", name: "hammer", iconName: "iceBreakers", label: "Ice Breakers" },
   
   { type: "EvilIcons", name: "calendar", iconName: "calendar", label: "Calendar" },
   { type: "Ionicons", name: "map", iconName: "map", label: "Map" },
