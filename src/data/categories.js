@@ -47,12 +47,12 @@ const categories = [
     icon: 'travelAndAdventure',
     sortOrder: 8,
   },
-  {
-    id: 'rabbitHole',
-    label: 'Rabbit Hole',
-    icon: 'rabbitHole',
-    sortOrder: 9,
-  },
+  // {
+  //   id: 'rabbitHole',
+  //   label: 'Rabbit Hole',
+  //   icon: 'rabbitHole',
+  //   sortOrder: 9,
+  // },
   {
     id: 'loveLife',
     label: 'Love Life',
@@ -60,11 +60,29 @@ const categories = [
     sortOrder: 10,
   },
   {
-    id: 'sex',
-    label: 'Sex',
-    icon: 'sex',
+    id: 'X',
+    label: 'X-Rated',
+    icon: 'x',
     sortOrder: 11,
   },
+  {
+    id: 'XX',
+    label: 'XX-Rated',
+    icon: 'xx',
+    sortOrder: 12,
+  },
+  {
+    id: 'XXX',
+    label: 'XXX-Rated',
+    icon: 'xxx',
+    sortOrder: 13,
+  },
+  // {
+  //   id: 'sex',
+  //   label: 'Sex',
+  //   icon: 'sex',
+  //   sortOrder: 11,
+  // },
 ]
 
 export default categories;
