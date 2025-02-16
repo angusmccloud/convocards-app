@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta property="og:image" content="app-icon.png">
+        <link rel="icon" type="image/png" href="app-icon.png">
+        <title>Convo Cards</title>
+        <script>
+            window.onload = function () {
+                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                
+                if (/iPhone|iPad|iPod/i.test(userAgent)) {
+                    window.location.href = "https://testflight.apple.com/join/YESTPR8p";
+                } else if (/Android/i.test(userAgent)) {
+                    window.location.href = "https://play.google.com/store/apps/details?id=com.connortyrrell.campconndigo";
+                } else {
+                    window.location.href = "https://connortyrrell.com/projects/";
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <h1>Redirecting...</h1>
+    </body>
+</html>
