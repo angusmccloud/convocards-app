@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import { View, Share, TouchableWithoutFeedback } from "react-native";
+import { View, Share, Platform } from "react-native";
 import { useTheme } from "react-native-paper";
-import Animated, { SlideOutLeft, SlideInLeft } from 'react-native-reanimated';
-import { Text, Button, Icon } from '../../components';
+import { Text, Button } from '../../components';
+import { QuestionCard } from '../../containers';
 import { questions } from "../../data";
 import { FavoritesContext, DislikedContext, ViewedContext } from "../../contexts";
 import useStyles from './QuestionScreenStyles';
@@ -29,11 +29,11 @@ export default function QuestionScreen({ navigation, route }) {
   }
 
   const onSharePress = async (question) => {
-    console.log('-- Share Press!! --');
+    const shareUrl = 'https://connortyrrell.com/convocards';
     const content = {
-      message: question.question,
-      // url: item.uri,
-      // title: `Convo Cards | ${question.category}`,
+      message: Platform.OS === 'ios' ? question.question : `${question.question}\n\nSent from the free Convo Card App ${shareUrl}`,
+      url: Platform.OS === 'ios' ? shareUrl : undefined,
+      title: `Convo Cards | ${question.category}`,
     };
     const options = {
       dialogTitle: `Convo Cards`,
@@ -42,6 +42,7 @@ export default function QuestionScreen({ navigation, route }) {
 
     try {
       const result = await Share.share(content, options);
+      /*
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
           console.log('Shared with', result.activityType);
@@ -51,9 +52,10 @@ export default function QuestionScreen({ navigation, route }) {
           // shared
         }
       } else if (result.action === Share.dismissedAction) {
-        console.log('dismissed');
         // dismissed
+        // console.log('dismissed');
       }
+      */
     } catch (error) {
       console.log(error.message);
     }
@@ -112,54 +114,5 @@ export default function QuestionScreen({ navigation, route }) {
         </View>
       </View>
     </View>
-  )
-}
-
-const QuestionCard = (props) => {
-  const { question, index, theme, displayIndex, favorites, disliked, numberOfItems, onSharePress } = props;
-  const { onFavoritePress } = useContext(FavoritesContext);
-  const { onDislikePress } = useContext(DislikedContext);
-  const styles = useStyles(theme);
-  const isFavorite = favorites.includes(question.id);
-  const heartIcon = isFavorite ? 'heart' : 'heartOutline';
-  const isDisliked = disliked.includes(question.id);
-  const dislikedIcon = isDisliked ? 'thumbsDown' : 'thumbsDownOutline';
-
-  const zIndex = numberOfItems - index;
-  if(Math.abs(displayIndex - index) > 1) {
-    return null;
-  }
-  return (
-    displayIndex <= index ? (
-      <Animated.View 
-        key={question.id}
-        style={[styles.card, {zIndex: zIndex}]}
-        entering={SlideInLeft}
-        exiting={SlideOutLeft}
-      >
-        <View style={{marginBottom: 30}}>
-          <Text size={'XXL'} color={theme.colors.onBackground} bold style={{textAlign: 'center'}}>{question.question}</Text>
-        </View>
-        <View style={styles.cardButtonContainer}>
-          <TouchableWithoutFeedback onPress={() => onDislikePress(question)}>
-            <View>
-              <Icon name={dislikedIcon} size={30} color={theme.colors.onBackground} />
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => onSharePress(question)}>
-            <View>
-              <Icon name={'share'} size={30} color={theme.colors.onBackground} />
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => onFavoritePress(question)}>
-            <View>
-              <Icon name={heartIcon} size={30} color={theme.colors.onBackground} />
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-      </Animated.View>
-    ) : (
-      null
-    )
   )
 }
