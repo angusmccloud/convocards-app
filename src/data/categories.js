@@ -59,24 +59,24 @@ const categories = [
     icon: 'loveLife',
     sortOrder: 10,
   },
-  {
-    id: 'X',
-    label: 'X-Rated',
-    icon: 'x',
-    sortOrder: 11,
-  },
-  {
-    id: 'XX',
-    label: 'XX-Rated',
-    icon: 'xx',
-    sortOrder: 12,
-  },
-  {
-    id: 'XXX',
-    label: 'XXX-Rated',
-    icon: 'xxx',
-    sortOrder: 13,
-  },
+  // {
+  //   id: 'X',
+  //   label: 'X-Rated',
+  //   icon: 'x',
+  //   sortOrder: 11,
+  // },
+  // {
+  //   id: 'XX',
+  //   label: 'XX-Rated',
+  //   icon: 'xx',
+  //   sortOrder: 12,
+  // },
+  // {
+  //   id: 'XXX',
+  //   label: 'XXX-Rated',
+  //   icon: 'xxx',
+  //   sortOrder: 13,
+  // },
   // {
   //   id: 'sex',
   //   label: 'Sex',
